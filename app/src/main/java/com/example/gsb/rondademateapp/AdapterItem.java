@@ -1,54 +1,66 @@
 package com.example.gsb.rondademateapp;
 
-import android.graphics.drawable.Drawable;
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
-public class Category {
+public class AdapterItem extends BaseAdapter {
 
-    private String title;
-    private String categoryId;
-    private String description;
-    private Drawable imagen;
+    protected Activity activity;
+    protected ArrayList<Category> items;
 
-    public Category() {
-        super();
+    public AdapterItem (Activity activity, ArrayList<Category> items) {
+        this.activity = activity;
+        this.items = items;
     }
 
-    public Category(String categoryId, String title, String description, Drawable imagen) {
-        super();
-        this.title = title;
-        this.description = description;
-        this.imagen = imagen;
-        this.categoryId = categoryId;
+    @Override
+    public int getCount() {
+        return items.size();
     }
 
-
-    public String getTitle() {
-        return title;
+    public void clear() {
+        items.clear();
     }
 
-    public void setTittle(String title) {
-        this.title = title;
+    public void addAll(ArrayList<Category> category) {
+        for (int i = 0; i < category.size(); i++) {
+            items.add(category.get(i));
+        }
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public Object getItem(int arg0) {
+        return items.get(arg0);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
-    public Drawable getImage() {
-        return imagen;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        View v = convertView;
+
+        if (convertView == null) {
+            LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inf.inflate(R.layout.persona_item, null);
+        }
+
+        Category dir = items.get(position);
+
+        TextView title = (TextView) v.findViewById(R.id.nombre);
+        title.setText(dir.getNombre());
+
+        return v;
     }
-
-    public void setImagen(Drawable imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getCategoryId(){return categoryId;}
-
-    public void setCategoryId(String categoryId){this.categoryId = categoryId;}
-
 }

@@ -32,14 +32,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:text="Cantidad de personas"
-        android:textColor="#F0F8F8"
         android:textSize="20dp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/lo_confTempMax"
+        android:id="@+id/lo_cantidad_personas"
         android:layout_width="fill_parent"
         android:layout_height="51dp"
         android:layout_marginTop="10dp"
@@ -56,14 +55,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Tiempo por persona(Minutos)"
-        android:textColor="#F0F8F8"
         android:textSize="20dp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lo_confTempMax" />
+        app:layout_constraintTop_toBottomOf="@+id/lo_cantidad_personas" />
 
     <EditText
-        android:id="@+id/lo_confTemp"
+        android:id="@+id/lo_tiempo_por_persona"
         android:layout_width="fill_parent"
         android:layout_height="51dp"
         android:layout_marginTop="10dp"
@@ -72,11 +70,6 @@
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
-
-
-
-
-
 
 
     <ImageView
@@ -92,6 +85,19 @@
         android:src="@drawable/mate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/lo_botonComenzar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/textinputborder"
+        android:text="Comenzar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
