@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         category.add(new Category("categoria3"));
         category.add(new Category("categoria4"));
         category.add(new Category("categoria5"));
+        
 
         ListView lv = (ListView) findViewById(R.id.lo_lv_personas);
 
