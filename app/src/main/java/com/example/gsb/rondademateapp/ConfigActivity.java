@@ -12,7 +12,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     EditText loConfCantPersonas;
     EditText loConfTiempoPorPersona;
-    Button loBtnComenzar;
+    Button loBtnAceptar;
     Intent intent;
     Integer iCantPersonas;
     Integer iTiempoPorPersona;
@@ -25,8 +25,8 @@ public class ConfigActivity extends AppCompatActivity {
 
         loConfCantPersonas = (EditText)findViewById(R.id.lo_cantidad_personas);
         loConfTiempoPorPersona = (EditText)findViewById(R.id.lo_tiempo_por_persona);
-        loBtnComenzar = (Button)findViewById(R.id.lo_botonComenzar);
-        loBtnComenzar.setOnClickListener(new onClickComenzar());
+        loBtnAceptar = (Button)findViewById(R.id.lo_botonAceptar);
+        loBtnAceptar.setOnClickListener(new onClickAceptar());
 
 
     }
@@ -34,7 +34,7 @@ public class ConfigActivity extends AppCompatActivity {
 
 
 
-    public class onClickComenzar implements View.OnClickListener {
+    public class onClickAceptar implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             try{
@@ -62,6 +62,10 @@ public class ConfigActivity extends AppCompatActivity {
         }
         if(iTiempoPorPersona == null || iTiempoPorPersona < 1){
             Toast.makeText(this, "El tiempo por persona debe ser mayor a cero", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(iCantPersonas > 30){
+            Toast.makeText(this, "Deben ser como máximo 30 personas", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

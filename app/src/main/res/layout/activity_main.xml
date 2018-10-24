@@ -13,20 +13,79 @@
         android:background="@drawable/fondomate"
         android:contentDescription="fondo" />
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/RelativeLayout_contenedor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/lo_tiempo_restante">
 
         <ListView
             android:id="@+id/lo_lv_personas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="346dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="16.0sp" />
-    </RelativeLayout>
+            android:dividerHeight="16.0sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/lo_tiempo_restante"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:text=""
+        android:textColor="#F0F8F8"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/lo_botonComenzar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/lo_botonComenzar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/textinputborder"
+        android:text="Comenzar"
+        app:layout_constraintBottom_toTopOf="@+id/lo_nombrePersona"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/lo_botonReiniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/textinputborder"
+        android:text="Reiniciar"
+        app:layout_constraintBottom_toTopOf="@+id/lo_nombrePersona"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lo_botonComenzar" />
+
+
+    <EditText
+        android:id="@+id/lo_nombrePersona"
+        android:layout_width="fill_parent"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/textinputborder"
+        android:inputType="text"
+        android:maxLength="20"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></EditText>
 
 
 </android.support.constraint.ConstraintLayout>

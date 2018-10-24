@@ -87,14 +87,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/lo_botonComenzar"
+        android:id="@+id/lo_botonAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:layout_marginEnd="60dp"
         android:layout_marginStart="60dp"
         android:background="@drawable/textinputborder"
-        android:text="Comenzar"
+        android:text="Aceptar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
