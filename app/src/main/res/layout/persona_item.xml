@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Titulo Frase"
+        android:text=""
         android:textSize="21sp"
-        android:textColor="#f65034"
+        android:textColor="#1a1f11"
         android:layout_alignParentTop="true" />
 
 
