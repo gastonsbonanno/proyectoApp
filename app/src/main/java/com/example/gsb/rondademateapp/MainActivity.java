@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     final Context context = this;
 
     Button loBtnComenzar;
-    Button loBtnReiniciar;
+    Button loBtnSiguiente;
     CountDownTimer timer;
     Integer iCantidadPersonas;
     Integer iTiempoPorPersona;
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Intent intent;
     Integer iPosActualListPersonas = null;
     ListView lv;
+    boolean isFuncionalidadActiva = false;
+    boolean isManual;
     final int COLOR_FONDO = Color.rgb(7,77,77);
     final int COLOR_FONT = Color.rgb(255,255,255);
 
@@ -47,12 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
         loBtnComenzar = (Button)findViewById(R.id.lo_botonComenzar);
         loBtnComenzar.setOnClickListener(new onClickComenzar());
-        loBtnReiniciar = (Button)findViewById(R.id.lo_botonReiniciar);
-        loBtnReiniciar.setOnClickListener(new onClickReiniciar());
+        loBtnSiguiente = (Button)findViewById(R.id.lo_botonSiguiente);
+        loBtnSiguiente.setOnClickListener(new onClickSiguiente());
         loTiempoRestante = (TextView)findViewById(R.id.lo_tiempo_restante);
 
         intent = getIntent();
         parsearValores();
+
+        if(isManual) {
+            loBtnSiguiente.setEnabled(true);
+            loBtnSiguiente.setVisibility(View.VISIBLE);
+        }else{
+            loBtnSiguiente.setEnabled(false);
+            loBtnSiguiente.setVisibility(View.GONE);
+        }
 
         final ArrayList<Category> category = new ArrayList<Category>();
         for(int i=1;i<=iCantidadPersonas;i++)
@@ -70,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 final int pos = position;
                 final TextView title = (TextView) view.findViewById(R.id.nombre);
 
-                /************************************************/
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 
@@ -115,11 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
-
-
-                /**************************************************/
-
-
             }
         });
 
@@ -130,13 +134,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             try{
-                setTimer(iTiempoPorPersona * 60 * 1000);
-                timer.start();
+                if(isFuncionalidadActiva) {
+                    loBtnComenzar.setText("Reiniciar");
+                    timer.cancel();
+                    loTiempoRestante.setText("");
+                    lv.getChildAt(iPosActualListPersonas).setBackgroundColor(Color.WHITE);
+                    TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
+                    nombre.setTextColor(Color.BLACK);
+                    iPosActualListPersonas = null;
+                }else{
+                    loBtnComenzar.setText("Comenzar");
+                    if (iTiempoPorPersona != null) {
+                        setTimer(iTiempoPorPersona * 60 * 1000);
+                        timer.start();
+                    }
+                    iPosActualListPersonas = 0;
+                    lv.getChildAt(iPosActualListPersonas).setBackgroundColor(COLOR_FONDO);
+                    TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
+                    nombre.setTextColor(COLOR_FONT);
+                }
 
-                iPosActualListPersonas = 0;
-                lv.getChildAt(iPosActualListPersonas).setBackgroundColor(COLOR_FONDO);
-                TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
-                nombre.setTextColor(COLOR_FONT);
             }
             catch (Exception e) {}
         }
@@ -148,7 +165,20 @@ public class MainActivity extends AppCompatActivity {
             try{
                 timer.cancel();
                 loTiempoRestante.setText("");
+                lv.getChildAt(iPosActualListPersonas).setBackgroundColor(Color.WHITE);
+                TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
+                nombre.setTextColor(Color.BLACK);
                 iPosActualListPersonas = null;
+            }
+            catch (Exception e) {}
+        }
+    }
+
+    public class onClickSiguiente implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            try{
+                pasarSiguientePersona();
             }
             catch (Exception e) {}
         }
@@ -169,18 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-                lv.getChildAt(iPosActualListPersonas).setBackgroundColor(Color.WHITE);
-                TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
-                nombre.setTextColor(Color.BLACK);
-                if(iPosActualListPersonas < iCantidadPersonas)
-                    iPosActualListPersonas++;
-                else
-                    iPosActualListPersonas = 0;
-                lv.getChildAt(iPosActualListPersonas).setBackgroundColor(COLOR_FONDO);
-                nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
-                nombre.setTextColor(COLOR_FONT);
-
+                pasarSiguientePersona();
                 setTimer(iTiempoPorPersona * 60 * 1000);
                 timer.start();
             }
@@ -189,16 +208,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void parsearValores(){
         bundle = intent.getExtras();
-        int iAux = bundle.getInt("tiempoPorPersona");
-        if(iAux != 0) {
-            iTiempoPorPersona = iAux;
+        Integer iAuxTiempoPers = bundle.getInt("tiempoPorPersona");
+        //if(iAuxTiempoPers != null) {
+            iTiempoPorPersona = iAuxTiempoPers;
 //            setTimer(iTiempoPorPersona * 60 * 1000);
 //            timer.start();
+        //}
+        int iAuxCantPers = bundle.getInt("cantPersonas");
+        if(iAuxCantPers != 0) {
+            iCantidadPersonas = iAuxCantPers;
         }
-        iAux = bundle.getInt("cantPersonas");
-        if(iAux != 0) {
-            iCantidadPersonas = iAux;
-        }
+
+        isManual = bundle.getBoolean("esManual",true);
 
     }
 
@@ -207,6 +228,19 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
         }catch (Exception e){}
         finish();
+    }
+
+    private void pasarSiguientePersona(){
+        lv.getChildAt(iPosActualListPersonas).setBackgroundColor(Color.WHITE);
+        TextView nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
+        nombre.setTextColor(Color.BLACK);
+        if(iPosActualListPersonas < iCantidadPersonas)
+            iPosActualListPersonas++;
+        else
+            iPosActualListPersonas = 0;
+        lv.getChildAt(iPosActualListPersonas).setBackgroundColor(COLOR_FONDO);
+        nombre = (TextView) lv.getChildAt(iPosActualListPersonas).findViewById(R.id.nombre);
+        nombre.setTextColor(COLOR_FONT);
     }
 
 }

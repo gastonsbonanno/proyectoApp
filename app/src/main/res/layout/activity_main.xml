@@ -53,33 +53,26 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/lo_botonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/textinputborder"
+        android:text="Siguiente"
+        app:layout_constraintBottom_toBottomOf="@+id/fondo"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/lo_botonComenzar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="50dp"
         android:background="@drawable/textinputborder"
         android:text="Comenzar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/lo_botonReiniciar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/textinputborder"
-        android:text="Reiniciar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lo_botonComenzar" />
-
-
 
 
 </android.support.constraint.ConstraintLayout>
