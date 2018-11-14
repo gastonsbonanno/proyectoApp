@@ -16,18 +16,23 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/RelativeLayout_contenedor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="401dp"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/lo_tiempo_restante">
+        app:layout_constraintBottom_toTopOf="@+id/lo_tiempo_restante"
+        app:layout_constraintTop_toTopOf="@+id/fondo">
 
         <ListView
             android:id="@+id/lo_lv_personas"
             android:layout_width="0dp"
-            android:layout_height="346dp"
+            android:layout_height="382dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="16.0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
@@ -56,7 +61,7 @@
         android:layout_marginStart="60dp"
         android:background="@drawable/textinputborder"
         android:text="Comenzar"
-        app:layout_constraintBottom_toTopOf="@+id/lo_nombrePersona"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,22 +75,11 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/textinputborder"
         android:text="Reiniciar"
-        app:layout_constraintBottom_toTopOf="@+id/lo_nombrePersona"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lo_botonComenzar" />
 
 
-    <EditText
-        android:id="@+id/lo_nombrePersona"
-        android:layout_width="fill_parent"
-        android:layout_height="51dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/textinputborder"
-        android:inputType="text"
-        android:maxLength="20"
-        android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></EditText>
 
 
 </android.support.constraint.ConstraintLayout>

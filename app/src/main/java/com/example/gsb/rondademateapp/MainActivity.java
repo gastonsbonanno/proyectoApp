@@ -1,11 +1,16 @@
 package com.example.gsb.rondademateapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,7 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText loNombrePersona;
+    final Context context = this;
+
     Button loBtnComenzar;
     Button loBtnReiniciar;
     CountDownTimer timer;
@@ -38,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        loNombrePersona = (EditText)findViewById(R.id.lo_nombrePersona);
+
         loBtnComenzar = (Button)findViewById(R.id.lo_botonComenzar);
         loBtnComenzar.setOnClickListener(new onClickComenzar());
         loBtnReiniciar = (Button)findViewById(R.id.lo_botonReiniciar);
         loBtnReiniciar.setOnClickListener(new onClickReiniciar());
         loTiempoRestante = (TextView)findViewById(R.id.lo_tiempo_restante);
+
         intent = getIntent();
         parsearValores();
 
@@ -61,8 +68,57 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
-                TextView title = (TextView) view.findViewById(R.id.nombre);
-                title.setText(loNombrePersona.getText());
+                final TextView title = (TextView) view.findViewById(R.id.nombre);
+
+                /************************************************/
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+
+
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.prompt, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput);
+
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and set it to result
+                                        // edit text
+                                        //result.setText(userInput.getText());
+                                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+                                        title.setText(userInput.getText().toString());
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+
+                /**************************************************/
+
 
             }
         });
